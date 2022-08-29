@@ -1,20 +1,47 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import { useForm } from "react-hook-form";
-import { ErrorMessage } from '@hookform/error-message';
+import { ErrorMessage } from "@hookform/error-message";
 
 export default function Form() {
   const { register, handleSubmit, errors } = useForm();
   const showKindOfTriangle = (length_a, length_b, length_c) => {
     if (length_a === length_b && length_b === length_c) {
       return "正三角形";
-    } else if (length_a === length_b || length_b === length_c || length_c === length_a) {
-      return "二等辺三角形";
+    } else if (
+      length_a === length_b ||
+      length_b === length_c ||
+      length_c === length_a
+    ) {
+      if (
+        (length_a + length_b > length_c) &
+        (length_b + length_c > length_a) &
+        (length_a + length_c > length_b)
+      ) {
+        return "二等辺三角形";
+      } else {
+        return "三角形が成立しません";
+      }
     } else {
-      return "不等辺三角形";
+      if (
+        (length_a + length_b > length_c) &
+        (length_b + length_c > length_a) &
+        (length_a + length_c > length_b)
+      ) {
+        return "不等辺三角形";
+      } else {
+        return "三角形が成立しません";
+      }
     }
-  }
-  const onSubmit = data => alert(showKindOfTriangle(Number(data.length_a), Number(data.length_b), Number(data.length_c)));
+  };
+  const onSubmit = (data) =>
+    alert(
+      showKindOfTriangle(
+        Number(data.length_a),
+        Number(data.length_b),
+        Number(data.length_c)
+      )
+    );
 
   const isEmptyMessage = "入力してください。";
   const patternZeroToOneHundred = /^[1-9]$|^[1-9][0-9]$/;
@@ -30,66 +57,72 @@ export default function Form() {
             </div>
             <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-group">
-                <label className="col-md-4 control-label"><span className="notice">*</span>A辺の長さ</label>
+                <label className="col-md-4 control-label">
+                  <span className="notice">*</span>A辺の長さ
+                </label>
                 <div className="col-md-4">
                   <input
                     id="length_a"
                     name="length_a"
-                    ref={
-                      register({
-                        required: isEmptyMessage,
-                        pattern: {
-                          value: patternZeroToOneHundred,
-                          message: isNotZeroToOneHundred
-                        }
-                      })
-                    }
+                    ref={register({
+                      required: isEmptyMessage,
+                      pattern: {
+                        value: patternZeroToOneHundred,
+                        message: isNotZeroToOneHundred,
+                      },
+                    })}
                     placeholder="整数2桁までの数字"
-                    size="60" type="text" />
+                    size="60"
+                    type="text"
+                  />
                   <span className="error">
                     <ErrorMessage errors={errors} name="length_a" />
                   </span>
                 </div>
               </div>
               <div className="form-group">
-                <label className="col-md-4 control-label"><span className="notice">*</span>B辺の長さ</label>
+                <label className="col-md-4 control-label">
+                  <span className="notice">*</span>B辺の長さ
+                </label>
                 <div className="col-md-4">
                   <input
                     id="length_b"
                     name="length_b"
-                    ref={
-                      register({
-                        required: isEmptyMessage,
-                        pattern: {
-                          value: patternZeroToOneHundred,
-                          message: isNotZeroToOneHundred
-                        }
-                      })
-                    }
+                    ref={register({
+                      required: isEmptyMessage,
+                      pattern: {
+                        value: patternZeroToOneHundred,
+                        message: isNotZeroToOneHundred,
+                      },
+                    })}
                     placeholder="整数2桁までの数字"
-                    size="60" type="text" />
+                    size="60"
+                    type="text"
+                  />
                   <span className="error">
                     <ErrorMessage errors={errors} name="length_b" />
                   </span>
                 </div>
               </div>
               <div className="form-group">
-                <label className="col-md-4 control-label"><span className="notice">*</span>C辺の長さ</label>
+                <label className="col-md-4 control-label">
+                  <span className="notice">*</span>C辺の長さ
+                </label>
                 <div className="col-md-4">
                   <input
                     id="length_c"
                     name="length_c"
-                    ref={
-                      register({
-                        required: isEmptyMessage,
-                        pattern: {
-                          value: patternZeroToOneHundred,
-                          message: isNotZeroToOneHundred
-                        }
-                      })
-                    }
+                    ref={register({
+                      required: isEmptyMessage,
+                      pattern: {
+                        value: patternZeroToOneHundred,
+                        message: isNotZeroToOneHundred,
+                      },
+                    })}
                     placeholder="整数2桁までの数字"
-                    size="60" type="text" />
+                    size="60"
+                    type="text"
+                  />
                   <span className="error">
                     <ErrorMessage errors={errors} name="length_c" />
                   </span>
