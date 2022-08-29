@@ -6,22 +6,16 @@ import { ErrorMessage } from '@hookform/error-message';
 export default function Form() {
   const { register, handleSubmit, errors } = useForm();
   const showKindOfTriangle = (length_a, length_b, length_c) => {
-    if (length_a === length_b && length_b === length_c) { 
+    if (length_a + length_b <= length_c || length_b + length_c <= length_a || length_a + length_c <= length_b) {
+      return "三角形が成立しません";
+    }
+    else if (length_a === length_b && length_b === length_c) {
       return "正三角形";
     } else if (length_a === length_b || length_b === length_c || length_c === length_a) {
-      if ((length_a + length_b > length_c) & (length_b + length_c > length_a) & (length_a + length_c > length_b)) {
-        return "二等辺三角形";
-      } else {
-        return "三角形が成立しません";
-      }     
+      return "二等辺三角形";
     } else {
-      if ((length_a + length_b > length_c) & (length_b + length_c > length_a) & (length_a + length_c > length_b)) {
-        return "不等辺三角形";
-      } else {
-        return "三角形が成立しません";
-      }
-      
-    }
+      return "不等辺三角形";
+    }   
   }
   const onSubmit = data => alert(showKindOfTriangle(Number(data.length_a), Number(data.length_b), Number(data.length_c)));
 
